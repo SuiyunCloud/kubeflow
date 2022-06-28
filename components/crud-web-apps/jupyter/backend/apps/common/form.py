@@ -297,3 +297,14 @@ def add_notebook_volume(notebook, vol_name, claim, mnt_path):
     # Container Mounts
     mnt = {"mountPath": mnt_path, "name": vol_name}
     container["volumeMounts"].append(mnt)
+
+
+def add_volcano_config(notebook, body, defaults):
+    queue_name = get_form_value(body, defaults, "workQueue")
+    template = notebook["spec"]["template"]
+    annotations = {"metadata": {"annotations": {"scheduling.volcano.sh/queue-name": queue_name}}}
+    template.update(annotations)
+
+    spec = notebook["spec"]["template"]["spec"]
+    scheduler = {"schedulerName": "volcano"}
+    spec.update(scheduler)

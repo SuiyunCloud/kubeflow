@@ -35,6 +35,9 @@ def post_pvc(namespace):
     form.set_notebook_configurations(notebook, body, defaults)
     form.set_notebook_shm(notebook, body, defaults)
 
+    # Support volcano
+    form.add_volcano_config(notebook, body, defaults)
+
     # Notebook volumes
     api_volumes = []
     api_volumes.extend(form.get_form_value(body, defaults, "datavols",
