@@ -30,7 +30,8 @@ type NotebookSpec struct {
 }
 
 type NotebookTemplateSpec struct {
-	Spec corev1.PodSpec `json:"spec,omitempty"`
+	Metadata metav1.ObjectMeta `json:"metadata,omitempty"`
+	Spec     corev1.PodSpec    `json:"spec,omitempty"`
 }
 
 // NotebookStatus defines the observed state of Notebook

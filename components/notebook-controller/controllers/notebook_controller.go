@@ -421,6 +421,15 @@ func generateStatefulSet(instance *v1beta1.Notebook) *appsv1.StatefulSet {
 			}
 		}
 	}
+
+	// Add volcano queue name annotation if there is
+	annotations := instance.Spec.Template.Metadata.GetAnnotations()
+	if volcanoQueue, ok := annotations["scheduling.volcano.sh/queue-name"]; ok {
+		ca := ss.Spec.Template.ObjectMeta.GetAnnotations()
+		ca["scheduling.volcano.sh/queue-name"] = volcanoQueue
+		ss.Spec.Template.ObjectMeta.SetAnnotations(ca)
+	}
+
 	return ss
 }
 

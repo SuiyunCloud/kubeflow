@@ -30,6 +30,9 @@ type NotebookSpec struct {
 }
 
 type NotebookTemplateSpec struct {
+	//
+	Metadata metav1.ObjectMeta `json:"metadata,omitempty"`
+
 	Spec corev1.PodSpec `json:"spec,omitempty"`
 }
 
