@@ -20,6 +20,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"sigs.k8s.io/controller-runtime/pkg/log"
 	"strings"
 
 	"github.com/go-logr/logr"
@@ -426,6 +427,8 @@ func generateStatefulSet(instance *v1beta1.Notebook) *appsv1.StatefulSet {
 	annotations := instance.Spec.Template.Metadata.GetAnnotations()
 	if volcanoQueue, ok := annotations["scheduling.volcano.sh/queue-name"]; ok {
 		ca := ss.Spec.Template.ObjectMeta.GetAnnotations()
+		tmp, _ := json.Marshal(ca)
+		log.Log.Info("TEST: Get annotation is " + string(tmp))
 		ca["scheduling.volcano.sh/queue-name"] = volcanoQueue
 		ss.Spec.Template.ObjectMeta.SetAnnotations(ca)
 	}
