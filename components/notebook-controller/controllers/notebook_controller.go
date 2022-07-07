@@ -429,6 +429,9 @@ func generateStatefulSet(instance *v1beta1.Notebook) *appsv1.StatefulSet {
 		ca := ss.Spec.Template.ObjectMeta.GetAnnotations()
 		tmp, _ := json.Marshal(ca)
 		log.Log.Info("TEST: Get annotation is " + string(tmp))
+		if ca == nil {
+			ca = make(map[string]string)
+		}
 		ca["scheduling.volcano.sh/queue-name"] = volcanoQueue
 		ss.Spec.Template.ObjectMeta.SetAnnotations(ca)
 	}
