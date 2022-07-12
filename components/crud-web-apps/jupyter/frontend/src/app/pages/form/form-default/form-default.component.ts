@@ -149,6 +149,9 @@ export class FormDefaultComponent implements OnInit, OnDestroy {
       }
     }
 
+    // Add workQueue
+    notebook.workQueue = notebook.namespace;
+
     return notebook;
   }
 
